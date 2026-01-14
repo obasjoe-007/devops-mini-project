@@ -1,26 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        TAG = "latest"
+    }
+
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/obasjoe-007/devops-mini-project.git'
-            }
-        }
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("devops-app:${env.BUILD_1}")
-                }
+                sh 'docker build -t devops-app:${TAG} .'
             }
         }
+
         stage('Run Container') {
             steps {
-                script {
-                    sh 'docker stop devops-app || true'
-                    sh 'docker rm devops-app || true'
-                    sh 'docker run -d -p 3001:3000 --name devops-app devops-app:${env.BUILD_1}'
-                }
+                sh '''
+                docker stop devops-app || true
+                docker rm devops-app || true
+                docker run -d --name devops-app -p 8081:8080 devops-app:${TAG}
+                '''
             }
         }
     }
