@@ -5,7 +5,7 @@ const server = http.createServer((req, res) => {
   res.end("Hello from DevOps CI/CD Project!");
 });
 
-server.listen(3000, () => {
+server.listen(8080, () => {
   console.log("App running on port 8080");
 });
 
