@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/<your-username>/devops-mini-project.git'
+                git branch: 'main', url: 'https://github.com/obasjoe-007/devops-mini-project.git'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("devops-app:${env.BUILD_NUMBER}")
+                    docker.build("devops-app:${env.BUILD_1}")
                 }
             }
         }
